@@ -117,7 +117,7 @@
     
     self.uncheckedImagesView.center = CGPointMake(SELFWIDTH * 0.5f, SELFHEIGHT * 0.5f);
     
-    self.checkedImagesView.frame = self.uncheckedImagesView.frame;
+    self.checkedImagesView.frame = CGRectMake(0, self.uncheckedImagesView.frame.origin.y, 0, starSize.height);
     
     for (NSInteger i = 0; i < STARCOUNT; i++) {
         

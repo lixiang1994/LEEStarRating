@@ -62,7 +62,7 @@
         
         // 请在设置完成最大最小的分数后再设置当前分数 并确保当前分数在最大和最小分数之间
         
-        ratingView.currentScore = 2.3f;
+//        ratingView.currentScore = 2.3f;
     }
     
     
