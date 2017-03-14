@@ -38,9 +38,14 @@ typedef NS_ENUM(NSUInteger, RatingType) {
 @property (nonatomic , assign ) CGFloat minimumScore;
 
 /**
- 启用评分 (初始化后设置 , 默认 NO)
+ 启用点击 (初始化后设置 , 默认 NO)
  */
-@property (nonatomic , assign ) BOOL scoreEnabled;
+@property (nonatomic , assign ) BOOL touchEnabled;
+
+/**
+ 启用滑动 (初始化后设置 , 默认 NO)
+ */
+@property (nonatomic , assign ) BOOL slideEnabled;
 
 /**
  评分类型 (初始化后设置 , 默认 RatingTypeWhole)

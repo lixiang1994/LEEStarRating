@@ -41,7 +41,9 @@
         
         ratingView.type = RatingTypeWhole; //评分类型
         
-        ratingView.scoreEnabled = YES; //是否启用评分 如果纯为展示则不需要设置
+        ratingView.touchEnabled = YES; //是否启用点击评分 如果纯为展示则不需要设置
+        
+        ratingView.slideEnabled = YES; //是否启用滑动评分 如果纯为展示则不需要设置
         
         ratingView.maximumScore = 10.0f; //最大分数
         
@@ -84,7 +86,9 @@
         
         ratingView.type = RatingTypeHalf;
         
-        ratingView.scoreEnabled = YES;
+        ratingView.touchEnabled = YES;
+        
+        ratingView.slideEnabled = YES;
         
         ratingView.maximumScore = 10.0f;
         
@@ -125,7 +129,9 @@
         
         ratingView.type = RatingTypeUnlimited;
         
-        ratingView.scoreEnabled = YES;
+        ratingView.touchEnabled = YES;
+        
+        ratingView.slideEnabled = YES;
         
         ratingView.maximumScore = 10.0f;
         

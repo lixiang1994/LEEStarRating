@@ -63,6 +63,8 @@
     
     _maximumScore = 5.0f;
     
+    _currentScore = 0.0f;
+    
     _type = RatingTypeWhole;
 }
 
@@ -141,17 +143,26 @@
     [self configLayout];
 }
 
-- (void)setScoreEnabled:(BOOL)scoreEnabled{
+- (void)setTouchEnabled:(BOOL)touchEnabled{
     
-    _scoreEnabled = scoreEnabled;
+    _touchEnabled = touchEnabled;
     
-    if (scoreEnabled) {
+    if (touchEnabled) {
         
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureEvent:)];
         
-        UIPanGestureRecognizer * panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureEvent:)];
-        
         [self addGestureRecognizer:tapGesture];
+    }
+    
+}
+
+- (void)setSlideEnabled:(BOOL)slideEnabled{
+    
+    _slideEnabled = slideEnabled;
+    
+    if (slideEnabled) {
+        
+        UIPanGestureRecognizer * panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureEvent:)];
         
         [self addGestureRecognizer:panGesture];
     }
