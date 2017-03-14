@@ -23,11 +23,13 @@
     /** 整颗星星类型 */
     {
         
-        UICountingLabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 30)];
+        UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, CGRectGetWidth(self.view.frame), 30)];
+        
+        scoreLabel.font = [UIFont boldSystemFontOfSize:20.0f];
         
         scoreLabel.textAlignment = NSTextAlignmentCenter;
         
-        scoreLabel.
+        [self.view addSubview:scoreLabel];
         
         LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 100, CGRectGetWidth(self.view.frame) - 30, 0) Count:10]; //初始化并设置frame和个数
         
@@ -51,6 +53,8 @@
         
         ratingView.currentScoreChangeBlock = ^(CGFloat score){
             
+            scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
+            
             NSLog(@"一 [%.2f]" , score);
         };
         
@@ -62,6 +66,13 @@
     
     /** 半颗星星类型 */
     {
+        UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, CGRectGetWidth(self.view.frame), 30)];
+        
+        scoreLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+        
+        scoreLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [self.view addSubview:scoreLabel];
 
         LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 200, CGRectGetWidth(self.view.frame) - 30, 0) Count:10];
         
@@ -83,6 +94,8 @@
         
         ratingView.currentScoreChangeBlock = ^(CGFloat score){
             
+            scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
+            
             NSLog(@"二 [%.2f]" , score);
         };
         
@@ -94,6 +107,13 @@
     
     /** 无限制类型 */
     {
+        UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 270, CGRectGetWidth(self.view.frame), 30)];
+        
+        scoreLabel.font = [UIFont boldSystemFontOfSize:20.0f];
+        
+        scoreLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [self.view addSubview:scoreLabel];
         
         LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 300, CGRectGetWidth(self.view.frame) - 30, 0) Count:10];
         
@@ -114,6 +134,8 @@
         [self.view addSubview:ratingView];
         
         ratingView.currentScoreChangeBlock = ^(CGFloat score){
+            
+            scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
             
             NSLog(@"三 [%.2f]" , score);
         };
