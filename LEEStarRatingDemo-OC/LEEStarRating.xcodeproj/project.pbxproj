@@ -522,6 +522,7 @@
 				9B7871271E763A4600D4151A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B7871281E763A4600D4151A /* Build configuration list for PBXNativeTarget "LEEStarRatingTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +531,7 @@
 				9B78712A1E763A4600D4151A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9B78712B1E763A4600D4151A /* Build configuration list for PBXNativeTarget "LEEStarRatingUITests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +540,7 @@
 				9B78712D1E763A4600D4151A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
