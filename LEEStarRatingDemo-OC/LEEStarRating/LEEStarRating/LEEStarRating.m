@@ -304,17 +304,13 @@
             
             ratio = STARCOUNT * ratio;
             
-            CGFloat s = (ratio) - floorf(ratio);
+            CGFloat z = floorf(ratio);
             
-            if (s >= 0.5f) {
-                
-                ratio = floorf(ratio) + 1.0f;
-            }
+            CGFloat s = ratio - z;
             
-            if (s < 0.5f && s > 0) {
-                
-                ratio = floorf(ratio) + 0.5f;
-            }
+            if (s >= 0.5f) ratio = z + 1.0f;
+            
+            if (s < 0.5f && s > 0.001f) ratio = z + 0.5f;
             
             width = starSize.width * ratio + (self.spacing * roundf(ratio));
         }
