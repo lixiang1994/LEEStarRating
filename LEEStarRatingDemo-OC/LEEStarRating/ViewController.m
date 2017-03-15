@@ -148,10 +148,12 @@
         
         // 请在设置完成最大最小的分数后再设置当前分数
         
-        ratingView.currentScore = 2.3f;
+        ratingView.currentScore = 4.32f;
     }
     
 }
+
+
 
 
 - (void)didReceiveMemoryWarning {

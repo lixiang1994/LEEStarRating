@@ -377,7 +377,13 @@
     
     // 设置当前分数
     
-    CGFloat currentScore = ratio / STARCOUNT * (self.maximumScore - self.minimumScore) + self.minimumScore;
+    NSDecimalNumber *numRatio = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%0.4lf", ratio / STARCOUNT]];
+    
+    NSDecimalNumber *numScore = [NSDecimalNumber decimalNumberWithString:[NSString stringWithFormat:@"%0.4lf", self.maximumScore - self.minimumScore]];
+    
+    NSDecimalNumber *numResult = [numRatio decimalNumberByMultiplyingBy:numScore];
+    
+    CGFloat currentScore = numResult.floatValue + self.minimumScore;
     
     if (currentScore < self.minimumScore) currentScore = self.minimumScore;
     
