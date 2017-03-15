@@ -1,5 +1,6 @@
 # LEEStarRating
-星星评分视图控件 支持整颗 , 半颗 , 无限制评分 可自定义分数范围和星星个数等.
+
+简单易用的星星评分视图控件 支持整颗 , 半颗 , 无限制评分 可自定义分数范围和星星个数等.
 
 演示
 ==============
@@ -22,6 +23,7 @@
 
 ```
         //初始化并设置frame和个数
+        
         LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 100, CGRectGetWidth(self.view.frame) - 30, 0) Count:10]; 
         
         ratingView.spacing = 10.0f; //间距
@@ -48,6 +50,7 @@
 
 ```
         // 当前分数变更事件回调
+        
         ratingView.currentScoreChangeBlock = ^(CGFloat score){
             
             scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
@@ -56,12 +59,13 @@
         };
         
         // 请在设置完成最大最小的分数后再设置当前分数 并确保当前分数在最大和最小分数之间
+        
         ratingView.currentScore = 2.3f;
 ```
     
 ### Swift
-
 待更新
+
     
 安装
 ==============
@@ -74,7 +78,7 @@
 
 系统要求
 ==============
-该库最低支持 `iOS 7.0` 和 `Xcode 7.0` (其他未测)
+该控件最低支持 `iOS 7.0` 和 `Xcode 7.0` (其他未测)
 
 许可证
 ==============
