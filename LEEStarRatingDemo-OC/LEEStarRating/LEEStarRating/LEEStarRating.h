@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, RatingType) {
  初始化方法
 
  @param frame frame
- @param count 个数
+ @param count 个数 (默认为 5)
  @return UIView
  */
 - (instancetype)initWithFrame:(CGRect)frame Count:(NSUInteger)count;

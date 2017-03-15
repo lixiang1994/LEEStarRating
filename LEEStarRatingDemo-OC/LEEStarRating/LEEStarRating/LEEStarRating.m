@@ -3,13 +3,19 @@
 
 #define STARCOUNT starCount
 
-#define SELFX self.frame.origin.x
-
-#define SELFY self.frame.origin.y
+#define SPACING self.spacing
 
 #define SELFWIDTH CGRectGetWidth(self.frame)
 
 #define SELFHEIGHT CGRectGetHeight(self.frame)
+
+#define X(view) view.frame.origin.x
+
+#define Y(view) view.frame.origin.y
+
+#define WIDTH(view) CGRectGetWidth(view.frame)
+
+#define HEIGHT(view) CGRectGetHeight(view.frame)
 
 @interface LEEStarRating ()
 
@@ -33,10 +39,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame Count:(NSUInteger)count
 {
+    starCount = count;
+    
     self = [super initWithFrame:frame];
     if (self) {
-        
-        starCount = count;
         
         // 初始化数据
         
@@ -51,6 +57,15 @@
         [self configLayout];
     }
     return self;
+}
+
+- (void)layoutSubviews{
+    
+    [super layoutSubviews];
+    
+    // 重新设置布局
+    
+    [self configLayout];
 }
 
 - (void)initData{
@@ -99,48 +114,61 @@
 
 - (void)configLayout{
     
-    NSAssert(STARCOUNT * self.spacing < SELFWIDTH, @"间距过长 已超出视图大小");
+    // 宽度或高度发生改变 更新子视图布局
     
-    // 计算星星大小
-    
-    CGFloat size = (SELFWIDTH - (STARCOUNT + 1) * self.spacing) / STARCOUNT ? : 0;
-    
-    starSize = CGSizeMake(size, size);
-    
-    // 如果当前高度小于星星高度 则设置当前高度为星星高度
-    
-    if (SELFHEIGHT < size) self.frame = CGRectMake(SELFX, SELFY, SELFWIDTH, size);
-    
-    // 设置已选中和未选中视图
-    
-    self.uncheckedImagesView.frame = CGRectMake(0, 0, SELFWIDTH, starSize.height);
-    
-    self.uncheckedImagesView.center = CGPointMake(SELFWIDTH * 0.5f, SELFHEIGHT * 0.5f);
-    
-    self.checkedImagesView.frame = CGRectMake(0, self.uncheckedImagesView.frame.origin.y, CGRectGetWidth(self.checkedImagesView.frame), starSize.height);
-    
-    for (NSInteger i = 0; i < STARCOUNT; i++) {
+    if (WIDTH(self.uncheckedImagesView) != SELFWIDTH ||
+        HEIGHT(self.uncheckedImagesView) != starSize.height) {
         
-        UIImageView *uncheckedImage = self.uncheckedImagesView.subviews[i];
+        self.uncheckedImagesView.frame = CGRectMake(0, 0, SELFWIDTH, starSize.height);
         
-        UIImageView *checkedImage = self.checkedImagesView.subviews[i];
+        self.uncheckedImagesView.center = CGPointMake(SELFWIDTH * 0.5f, SELFHEIGHT * 0.5f);
         
-        CGRect imageFrame = CGRectMake(i ? (starSize.width + self.spacing) * i + self.spacing : self.spacing, 0, starSize.width, starSize.height);
+        self.checkedImagesView.frame = CGRectMake(0, Y(self.uncheckedImagesView), WIDTH(self.checkedImagesView), starSize.height);
         
-        uncheckedImage.frame = imageFrame;
+        for (NSInteger i = 0; i < STARCOUNT; i++) {
+            
+            UIImageView *uncheckedImage = self.uncheckedImagesView.subviews[i];
+            
+            UIImageView *checkedImage = self.checkedImagesView.subviews[i];
+            
+            CGRect imageFrame = CGRectMake(i ? (starSize.width + SPACING) * i + SPACING : SPACING, 0, starSize.width, starSize.height);
+            
+            uncheckedImage.frame = imageFrame;
+            
+            checkedImage.frame = imageFrame;
+        }
         
-        checkedImage.frame = imageFrame;
     }
     
 }
 
 #pragma mark - Setter
 
+- (void)setFrame:(CGRect)frame{
+    
+    // 计算星星大小
+    
+    if (frame.size.width) {
+        
+        NSAssert(STARCOUNT * SPACING < SELFWIDTH, @"间距过长 已超出视图大小");
+        
+        CGFloat size = (frame.size.width - (STARCOUNT + 1) * SPACING) / STARCOUNT ? : 0;
+        
+        starSize = CGSizeMake(size, size);
+    }
+    
+    // 如果当前高度不等于于星星高度 则设置当前高度为星星高度
+    
+    if (frame.size.height != starSize.height) frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, starSize.height);
+    
+    [super setFrame:frame];
+}
+
 - (void)setSpacing:(CGFloat)spacing{
     
     _spacing = spacing;
     
-    [self configLayout];
+    self.frame = self.frame;
 }
 
 - (void)setTouchEnabled:(BOOL)touchEnabled{
@@ -174,7 +202,7 @@
     _uncheckedImage = uncheckedImage;
     
     [self.uncheckedImagesView.subviews enumerateObjectsUsingBlock:^(__kindof UIImageView * _Nonnull imageView, NSUInteger idx, BOOL * _Nonnull stop) {
-       
+        
         imageView.image = uncheckedImage;
     }];
 }
@@ -218,6 +246,13 @@
     NSAssert(maximumScore > self.minimumScore, @"最大分数不能小于最小分数");
 }
 
+- (void)setCurrentScoreChangeBlock:(void (^)(CGFloat))currentScoreChangeBlock{
+    
+    _currentScoreChangeBlock = currentScoreChangeBlock;
+    
+    if (currentScoreChangeBlock) currentScoreChangeBlock(self.currentScore);
+}
+
 #pragma mark - Action
 
 - (void)tapGestureEvent:(UITapGestureRecognizer *)tap{
@@ -237,16 +272,16 @@
 #pragma mark - Tools
 
 - (CGFloat)pointToRatio:(CGPoint)point{
-
+    
     // 坐标 转 所选中的比例
     
     CGFloat ratio = 0.0f;
     
-    if (self.spacing > point.x) {
+    if (SPACING > point.x) {
         
         ratio = 0.0f;
         
-    } else if (SELFWIDTH - self.spacing < point.x) {
+    } else if (SELFWIDTH - SPACING < point.x) {
         
         ratio = 1.0f;
         
@@ -259,7 +294,7 @@
          * 所选中的星星宽度 / 所有星星宽度 = 当前选中的比例
          */
         
-        CGFloat itemWidth = self.spacing + starSize.width;
+        CGFloat itemWidth = SPACING + starSize.width;
         
         CGFloat icount = point.x / itemWidth;
         
@@ -267,13 +302,13 @@
         
         CGFloat added = (itemWidth * (icount - count));
         
-        added = added >= self.spacing ? self.spacing : added;
+        added = added >= SPACING ? SPACING : added;
         
-        CGFloat x = point.x - self.spacing * count - added;
+        CGFloat x = point.x - SPACING * count - added;
         
         ratio = x / (starSize.width * STARCOUNT);
     }
-
+    
     return ratio;
 }
 
@@ -295,7 +330,7 @@
         {
             ratio = ceilf(STARCOUNT * ratio);
             
-            width = starSize.width * ratio + (self.spacing * roundf(ratio));
+            width = starSize.width * ratio + (SPACING * roundf(ratio));
         }
             break;
             
@@ -312,7 +347,7 @@
             
             if (s < 0.5f && s > 0.001f) ratio = z + 0.5f;
             
-            width = starSize.width * ratio + (self.spacing * roundf(ratio));
+            width = starSize.width * ratio + (SPACING * roundf(ratio));
         }
             break;
             
@@ -320,7 +355,7 @@
             
             ratio = STARCOUNT * ratio;
             
-            width = starSize.width * ratio + (self.spacing * ceilf(ratio));
+            width = starSize.width * ratio + (SPACING * ceilf(ratio));
             
             break;
             
