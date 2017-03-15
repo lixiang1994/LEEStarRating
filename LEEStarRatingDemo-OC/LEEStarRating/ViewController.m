@@ -151,6 +151,83 @@
         ratingView.currentScore = 4.32f;
     }
     
+    /** 变色星星实现演示 */
+    {
+        UILabel *scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 370, CGRectGetWidth(self.view.frame), 30)];
+        
+        scoreLabel.font = [UIFont systemFontOfSize:14.0f];
+        
+        scoreLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [self.view addSubview:scoreLabel];
+        
+        LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(40, 400, CGRectGetWidth(self.view.frame) - 80, 0) Count:5];
+        
+        ratingView.spacing = 10.0f;
+        
+        ratingView.checkedImage = [UIImage imageNamed:@"star_orange"];
+        
+        ratingView.uncheckedImage = [UIImage imageNamed:@"star_gray"];
+        
+        ratingView.type = RatingTypeWhole;
+        
+        ratingView.touchEnabled = YES;
+        
+        ratingView.slideEnabled = YES;
+        
+        ratingView.maximumScore = 10.0f;
+        
+        ratingView.minimumScore = 0.0f;
+        
+        [self.view addSubview:ratingView];
+        
+        __strong LEEStarRating *strongRatingView = ratingView;
+        
+        ratingView.currentScoreChangeBlock = ^(CGFloat score){
+            
+            if (score == 0) {
+                
+                scoreLabel.text = @"点击星星评论";
+                
+            } else if (score > 0 && score <= 2.0f) {
+                
+                strongRatingView.checkedImage = [UIImage imageNamed:@"star_yellow"];
+                
+                scoreLabel.text = @"很差";
+                
+            } else if (score > 2.0f && score <= 4.0f) {
+                
+                strongRatingView.checkedImage = [UIImage imageNamed:@"star_yellow"];
+                
+                scoreLabel.text = @"一般";
+                
+            } else if (score > 4.0f && score <= 6.0f) {
+                
+                strongRatingView.checkedImage = [UIImage imageNamed:@"star_orange"];
+                
+                scoreLabel.text = @"还好";
+                
+            } else if (score > 6.0f && score <= 8.0f) {
+                
+                strongRatingView.checkedImage = [UIImage imageNamed:@"star_orange"];
+                
+                scoreLabel.text = @"很喜欢";
+                
+            } else if (score > 8.0f && score <= 10.0f) {
+                
+                strongRatingView.checkedImage = [UIImage imageNamed:@"star_red"];
+                
+                scoreLabel.text = @"棒极了";
+            }
+            
+            NSLog(@"三 [%.2f]" , score);
+        };
+        
+        // 请在设置完成最大最小的分数后再设置当前分数
+        
+        ratingView.currentScore = 4.32f;
+    }
+    
 }
 
 
