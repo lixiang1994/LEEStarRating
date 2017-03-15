@@ -22,7 +22,7 @@
 #### 初始化并设置
 
 ```
-        //初始化并设置frame和个数
+        // 初始化并设置frame和个数
         
         LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 100, CGRectGetWidth(self.view.frame) - 30, 0) Count:10]; 
         
@@ -66,7 +66,7 @@
 ### Swift
 待更新
 
-    
+
 安装
 ==============
 
