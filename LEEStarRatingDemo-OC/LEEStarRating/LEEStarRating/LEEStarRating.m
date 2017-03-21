@@ -81,6 +81,8 @@
     _currentScore = 0.0f;
     
     _type = RatingTypeWhole;
+    
+    self.userInteractionEnabled = NO;
 }
 
 - (void)initSubViews{
@@ -177,6 +179,8 @@
     
     if (touchEnabled) {
         
+        self.userInteractionEnabled = YES;
+        
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureEvent:)];
         
         [self addGestureRecognizer:tapGesture];
@@ -189,6 +193,8 @@
     _slideEnabled = slideEnabled;
     
     if (slideEnabled) {
+        
+        self.userInteractionEnabled = YES;
         
         UIPanGestureRecognizer * panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureEvent:)];
         
