@@ -168,7 +168,7 @@
 
 - (void)setSpacing:(CGFloat)spacing{
     
-    _spacing = spacing;
+    _spacing = spacing > 0.0f ? spacing : 0.01f;
     
     self.frame = self.frame;
 }
