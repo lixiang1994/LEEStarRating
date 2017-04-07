@@ -349,9 +349,9 @@
             
             CGFloat s = ratio - z;
             
-            if (s >= 0.5f) ratio = z + 1.0f;
+            if (s > 0.5f) ratio = z + 1.0f;
             
-            if (s < 0.5f && s > 0.001f) ratio = z + 0.5f;
+            if (s <= 0.5f && s >= 0.001f) ratio = z + 0.5f;
             
             width = starSize.width * ratio + (SPACING * roundf(ratio));
         }
