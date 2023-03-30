@@ -22,50 +22,79 @@
 
 #### 初始化并设置
 
-```
-        // 初始化并设置frame和个数
+```objective-c
+// 初始化并设置frame和个数
         
-        LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 100, CGRectGetWidth(self.view.frame) - 30, 0) Count:10]; 
+LEEStarRating *ratingView = [[LEEStarRating alloc] initWithFrame:CGRectMake(15, 100, CGRectGetWidth(self.view.frame) - 30, 0) Count:10]; 
         
-        ratingView.spacing = 10.0f; //间距
+ratingView.spacing = 10.0f; //间距
         
-        ratingView.checkedImage = [UIImage imageNamed:@"star_orange"]; //选中图片
+ratingView.checkedImage = [UIImage imageNamed:@"star_orange"]; //选中图片
         
-        ratingView.uncheckedImage = [UIImage imageNamed:@"star_gray"]; //未选中图片
+ratingView.uncheckedImage = [UIImage imageNamed:@"star_gray"]; //未选中图片
         
-        ratingView.type = RatingTypeWhole; //评分类型
+ratingView.type = RatingTypeWhole; //评分类型
         
-        ratingView.touchEnabled = YES; //是否启用点击评分 如果纯为展示则不需要设置
+ratingView.touchEnabled = YES; //是否启用点击评分 如果纯为展示则不需要设置
         
-        ratingView.slideEnabled = YES; //是否启用滑动评分 如果纯为展示则不需要设置
+ratingView.slideEnabled = YES; //是否启用滑动评分 如果纯为展示则不需要设置
         
-        ratingView.maximumScore = 10.0f; //最大分数
+ratingView.maximumScore = 10.0f; //最大分数
         
-        ratingView.minimumScore = 0.0f; //最小分数
+ratingView.minimumScore = 0.0f; //最小分数
         
-        [self.view addSubview:ratingView]; //添加到父视图
+[self.view addSubview:ratingView]; //添加到父视图
         
 ```
 
 #### 设置当前分数及回调
 
-```
-        // 当前分数变更事件回调
+```objective-c
+// 当前分数变更事件回调
         
-        ratingView.currentScoreChangeBlock = ^(CGFloat score){
+ratingView.currentScoreChangeBlock = ^(CGFloat score){
             
-            scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
+    scoreLabel.text = [NSString stringWithFormat:@"%.1f" , score];
             
-            NSLog(@"当前分数 [%.2f]" , score);
-        };
+    NSLog(@"当前分数 [%.2f]" , score);
+};
         
-        // 请在设置完成最大最小的分数后再设置当前分数 并确保当前分数在最大和最小分数之间
+// 请在设置完成最大最小的分数后再设置当前分数 并确保当前分数在最大和最小分数之间
         
-        ratingView.currentScore = 2.3f;
+ratingView.currentScore = 2.3f;
 ```
     
 ### Swift
-待更新
+
+#### 初始化并设置
+
+```swift
+let rating = LEEStarRating(
+    frame: .init(x: 15, y: 200, width: view.frame.width - 30, height: 50),
+    configuration: .init(
+        count: 10,
+        spacing: 10,
+        maximumScore: 10,
+        minimumScore: 0,
+        touchEnabled: true,
+        slideEnabled: true,
+        mode: .half
+    )
+)
+rating.checkedImage = .init(named: "star_orange")
+rating.uncheckedImage = .init(named: "star_gray")
+```
+
+#### 设置当前分数及回调
+
+```swift
+rating.currentScoreChange = { value in
+    label.text = String(format: "%.4f", value)
+}
+
+// 设置当前分数
+rating.set(current: 4.46)
+```
 
 
 安装
