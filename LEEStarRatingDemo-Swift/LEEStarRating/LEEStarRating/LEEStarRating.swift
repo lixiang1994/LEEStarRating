@@ -91,6 +91,9 @@ public class LEEStarRating: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
         
+        let size = (frame.size.width - .init(configuration.count + 1) * configuration.spacing) / .init(configuration.count)
+        star = .init(width: size, height: size)
+        
         uncheckedImagesView.frame = .init(x: 0, y: 0, width: frame.width, height: star.height)
         uncheckedImagesView.center = .init(x: frame.width * 0.5, y: frame.height * 0.5)
         
